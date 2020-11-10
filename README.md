@@ -1,6 +1,6 @@
 # commlib-cli
 
-CLI for broker-based communication using commlib-py
+Broker-transparent CLI for ReqResp and PubSub communication using commlib-py.
 
 
 # Installation
@@ -12,6 +12,11 @@ Simply run:
 
     $ pipsi install .
 
+Or install in userspace in devel mode to easily apply repo updates
+
+```bash
+$ python setup.py develop --user
+```
 
 # Usage
 
@@ -39,4 +44,32 @@ Commands:
   rpcs  RPC Service
   sub   Subscriber
 
+```
+
+## Examples
+
+### ReqResp/RPC Communication
+
+In a terminal run the AMQP RPC Service
+
+```bash
+commlib-cli --btype amqp rpcs 'ops.motion.move_by_vel'
+```
+
+In a terminal call the AMQP RPC Service
+```bash
+commlib-cli --btype amqp rpcc 'ops.motion.move_by_vel' '{"linear_vel": 1.0, "angular_vel": 0.0}'
+```
+
+### PubSub Communication
+
+In a terminal run the MQTT Subscriber
+
+```bash
+commlib-cli --btype mqtt sub 'sensors.temperature.tmps1'
+```
+
+In a terminal call the MQTT Publisher
+```bash
+commlib-cli --btype mqtt pub --rate 1 'sensors.temperature.tmps1' '{"temperature": 22.3}'
 ```
