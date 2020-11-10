@@ -3,7 +3,7 @@ CLI for broker-based communication using commlib-py
 """
 from setuptools import find_packages, setup
 
-dependencies = ['click']
+dependencies = ['click', 'commlib']
 
 setup(
     name='commlib-cli',

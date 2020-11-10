@@ -5,6 +5,9 @@ Broker-transparent CLI for ReqResp and PubSub communication using commlib-py.
 
 # Installation
 
+If you don't already have [commlib-py](https://github.com/robotics-4-all/commlib-py) please proceed before
+installing this CLI.
+
 If you don't use `pipsi`, you're missing out.
 Here are [installation instructions](https://github.com/mitsuhiko/pipsi#readme).
 
