@@ -4,7 +4,7 @@ import time
 
 
 @click.group()
-@click.option('--host', default='localhost', help='Broker ip/domain')
+@click.option('--host', '-h', default='localhost', help='Broker ip/domain')
 @click.option('--port', '-p', default=None, help='Broker port')
 @click.option('--btype', '-t', default='mqtt', help='Broker port')
 @click.option('--vhost', default='/', help='AMQP Broker port')
@@ -54,7 +54,7 @@ def cli(ctx, host, port, btype, vhost, db, username, password):
     ctx.obj['btype'] = btype
 
 
-@cli.command()
+@cli.command(help='Publisher')
 @click.pass_context
 @click.option('--rate', default=1, help='Publishing rate in hz')
 @click.argument('uri')
@@ -80,7 +80,7 @@ def pub(ctx, rate, uri, data):
         time.sleep(1.0 / rate)
 
 
-@cli.command()
+@cli.command(help='Subscriber')
 @click.pass_context
 @click.argument('uri')
 def sub(ctx, uri):
@@ -102,7 +102,7 @@ def sub(ctx, uri):
     sub.run_forever()
 
 
-@cli.command()
+@cli.command(help='RPC Service')
 @click.pass_context
 @click.argument('uri')
 def rpcs(ctx, uri):
@@ -125,7 +125,7 @@ def rpcs(ctx, uri):
     rpc.run_forever()
 
 
-@cli.command()
+@cli.command(help='RPC Client')
 @click.pass_context
 @click.argument('uri')
 @click.argument('data')
