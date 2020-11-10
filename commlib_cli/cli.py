@@ -59,7 +59,7 @@ def cli(ctx, host, port, btype, vhost, db, username, password):
 @click.option('--rate', default=1, help='Publishing rate in hz')
 @click.argument('uri')
 @click.argument('data')
-def publish(ctx, rate, uri, data):
+def pub(ctx, rate, uri, data):
     data = json.loads(data)
     conn_params = ctx.obj['conn_params']
     btype = ctx.obj['btype']
@@ -83,7 +83,7 @@ def publish(ctx, rate, uri, data):
 @cli.command()
 @click.pass_context
 @click.argument('uri')
-def subscribe(ctx, uri):
+def sub(ctx, uri):
     # click.echo(f'URI -> {uri}')
     conn_params = ctx.obj['conn_params']
     btype = ctx.obj['btype']
@@ -100,6 +100,50 @@ def subscribe(ctx, uri):
 
     sub = Subscriber(conn_params=conn_params, topic=uri, on_message=on_message)
     sub.run_forever()
+
+
+@cli.command()
+@click.pass_context
+@click.argument('uri')
+def rpcs(ctx, uri):
+    ## Implements an Echo RPC Service
+    conn_params = ctx.obj['conn_params']
+    btype = ctx.obj['btype']
+
+    if btype == 'mqtt':
+        from commlib.transports.mqtt import RPCService
+    if btype == 'amqp':
+        from commlib.transports.amqp import RPCService
+    if btype == 'redis':
+        from commlib.transports.redis import RPCService
+
+    def on_request(msg):
+        return msg
+
+    rpc = RPCService(conn_params=conn_params, rpc_name=uri,
+                     on_request=on_request)
+    rpc.run_forever()
+
+
+@cli.command()
+@click.pass_context
+@click.argument('uri')
+@click.argument('data')
+def rpcc(ctx, uri, data):
+    data = json.loads(data)
+    conn_params = ctx.obj['conn_params']
+    btype = ctx.obj['btype']
+
+    if btype == 'mqtt':
+        from commlib.transports.mqtt import RPCClient
+    if btype == 'amqp':
+        from commlib.transports.amqp import RPCClient
+    if btype == 'redis':
+        from commlib.transports.redis import RPCClient
+
+    rpc = RPCClient(conn_params=conn_params, rpc_name=uri)
+    resp = rpc.call(data)
+    print(resp)
 
 
 def main():
