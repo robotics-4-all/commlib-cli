@@ -8,7 +8,7 @@ import time
 @click.option('--port', '-p', default=None, help='Broker port')
 @click.option('--btype', '-t', default='mqtt', help='Broker port')
 @click.option('--vhost', default='/', help='AMQP Broker port')
-@click.option('--db', default=1, help='Redis Broker port')
+@click.option('--db', default=0, help='Redis Broker port')
 @click.option('--username', default='', help='Broker auth username')
 @click.option('--password', default='', help='Broker auth password')
 @click.pass_context
@@ -118,6 +118,7 @@ def rpcs(ctx, uri):
         from commlib.transports.redis import RPCService
 
     def on_request(msg):
+        print(msg)
         return msg
 
     rpc = RPCService(conn_params=conn_params, rpc_name=uri,
