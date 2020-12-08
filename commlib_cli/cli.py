@@ -95,7 +95,7 @@ def sub(ctx, uri):
     if btype == 'redis':
         from commlib.transports.redis import Subscriber
 
-    def on_message(data):
+    def on_message(data, meta=None):
         print(data)
 
     sub = Subscriber(conn_params=conn_params, topic=uri, on_message=on_message)
@@ -117,7 +117,7 @@ def rpcs(ctx, uri):
     if btype == 'redis':
         from commlib.transports.redis import RPCService
 
-    def on_request(msg):
+    def on_request(msg, meta=None):
         print(msg)
         return msg
 
