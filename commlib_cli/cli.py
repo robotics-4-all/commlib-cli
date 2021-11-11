@@ -46,6 +46,8 @@ def cli(ctx, host, port, btype, vhost, db, username, password):
         conn_params = ConnectionParameters(host=host,
                                            port=port,
                                            db=db)
+    else:
+        raise ValueError('Invalid <btype> argument')
 
     creds=Credentials(username=username,
                       password=password)
@@ -66,10 +68,12 @@ def pub(ctx, rate, uri, data):
 
     if btype == 'mqtt':
         from commlib.transports.mqtt import Publisher
-    if btype == 'amqp':
+    elif btype == 'amqp':
         from commlib.transports.amqp import Publisher
-    if btype == 'redis':
+    elif btype == 'redis':
         from commlib.transports.redis import Publisher
+    else:
+        raise ValueError('Invalid <btype> argument')
 
     pub = Publisher(conn_params=conn_params, topic=uri)
     if rate == 0:
@@ -90,10 +94,12 @@ def sub(ctx, uri):
 
     if btype == 'mqtt':
         from commlib.transports.mqtt import Subscriber
-    if btype == 'amqp':
+    elif btype == 'amqp':
         from commlib.transports.amqp import Subscriber
-    if btype == 'redis':
+    elif btype == 'redis':
         from commlib.transports.redis import Subscriber
+    else:
+        raise ValueError('Invalid <btype> argument')
 
     def on_message(data, meta=None):
         print(data)
@@ -112,10 +118,12 @@ def rpcs(ctx, uri):
 
     if btype == 'mqtt':
         from commlib.transports.mqtt import RPCService
-    if btype == 'amqp':
+    elif btype == 'amqp':
         from commlib.transports.amqp import RPCService
-    if btype == 'redis':
+    elif btype == 'redis':
         from commlib.transports.redis import RPCService
+    else:
+        raise ValueError('Invalid <btype> argument')
 
     def on_request(msg, meta=None):
         print(msg)
@@ -137,10 +145,12 @@ def rpcc(ctx, uri, data):
 
     if btype == 'mqtt':
         from commlib.transports.mqtt import RPCClient
-    if btype == 'amqp':
+    elif btype == 'amqp':
         from commlib.transports.amqp import RPCClient
-    if btype == 'redis':
+    elif btype == 'redis':
         from commlib.transports.redis import RPCClient
+    else:
+        raise ValueError('Invalid <btype> argument')
 
     rpc = RPCClient(conn_params=conn_params, rpc_name=uri)
     resp = rpc.call(data)
