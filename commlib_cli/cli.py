@@ -32,14 +32,14 @@ def cli(ctx, host, port, btype, vhost, db, username, password):
         )
         conn_params = ConnectionParameters(host=host,
                                            port=port)
-    if btype == 'amqp':
+    elif btype == 'amqp':
         from commlib.transports.amqp import (
             Publisher, ConnectionParameters, Credentials
         )
         conn_params = ConnectionParameters(host=host,
                                            port=port,
                                            vhost=vhost)
-    if btype == 'redis':
+    elif btype == 'redis':
         from commlib.transports.redis import (
             Publisher, ConnectionParameters, Credentials
         )
