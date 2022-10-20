@@ -27,31 +27,25 @@ def cli(ctx, host, port, btype, vhost, db, username, password):
     ctx.ensure_object(dict)
 
     if btype == 'mqtt':
-        from commlib.transports.mqtt import (
-            Publisher, ConnectionParameters, Credentials
+        from commlib.transports.mqtt import ConnectionParameters
+        conn_params = ConnectionParameters(
+            host=host, port=port, username=username, password=password
         )
-        conn_params = ConnectionParameters(host=host,
-                                           port=port)
     elif btype == 'amqp':
-        from commlib.transports.amqp import (
-            Publisher, ConnectionParameters, Credentials
+        from commlib.transports.amqp import ConnectionParameters
+        conn_params = ConnectionParameters(
+            host=host, port=port, vhost=vhost,
+            username=username, password=password
         )
-        conn_params = ConnectionParameters(host=host,
-                                           port=port,
-                                           vhost=vhost)
     elif btype == 'redis':
-        from commlib.transports.redis import (
-            Publisher, ConnectionParameters, Credentials
+        from commlib.transports.redis import ConnectionParameters
+        conn_params = ConnectionParameters(
+            host=host, port=port, db=db,
+            username=username, password=password
         )
-        conn_params = ConnectionParameters(host=host,
-                                           port=port,
-                                           db=db)
     else:
-        raise ValueError('Invalid <btype> argument')
+        raise ValueError('Broker is not supported!')
 
-    creds=Credentials(username=username,
-                      password=password)
-    conn_params.creds = creds
     ctx.obj['conn_params'] = conn_params
     ctx.obj['btype'] = btype
 
