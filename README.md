@@ -11,11 +11,8 @@ installing this CLI.
 If you don't use `pipsi`, you're missing out.
 Here are [installation instructions](https://github.com/mitsuhiko/pipsi#readme).
 
-Simply run:
-
-    $ pipsi install .
-
-Or install in userspace in devel mode to easily apply repo updates
+Install in userspace in devel mode (Working on a fix to work via pip
+    installation)
 
 ```bash
 $ pip install -r requirements.txt
