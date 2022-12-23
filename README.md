@@ -18,6 +18,7 @@ Simply run:
 Or install in userspace in devel mode to easily apply repo updates
 
 ```bash
+$ pip install -r requirements.txt
 $ python setup.py develop --user
 ```
 
