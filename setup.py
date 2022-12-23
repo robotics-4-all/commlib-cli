@@ -3,11 +3,11 @@ CLI for broker-based communication using commlib-py
 """
 from setuptools import find_packages, setup
 
-dependencies = ['click', 'commlib']
+required = []
 
 setup(
     name='commlib-cli',
-    version='0.1.0',
+    version='0.2.0',
     url='https://github.com/klpanagi/commlib-cli',
     license='BSD',
     author='Konstantinos Panayiotou',
@@ -18,7 +18,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     platforms='any',
-    install_requires=dependencies,
+    install_requires=required,
     entry_points={
         'console_scripts': [
             'commlib-cli = commlib_cli.cli:main',
