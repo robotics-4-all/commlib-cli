@@ -70,6 +70,7 @@ def pub(ctx, rate, uri, data):
         raise ValueError('Invalid <btype> argument')
 
     pub = Publisher(conn_params=conn_params, topic=uri)
+    pub.run()
     if rate == 0:
         pub.publish(data)
         return
@@ -147,6 +148,7 @@ def rpcc(ctx, uri, data):
         raise ValueError('Invalid <btype> argument')
 
     rpc = RPCClient(conn_params=conn_params, rpc_name=uri)
+    rpc.run()
     resp = rpc.call(data)
     print(resp)
 
