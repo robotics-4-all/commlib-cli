@@ -1,2 +1,2 @@
 click
-git+https://github.com/robotics-4-all/commlib-py.git
+commlib-py==0.10.6
