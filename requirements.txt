@@ -1,2 +1,2 @@
 click
-commlib-py==0.10.6
+commlib-py>=0.10.6

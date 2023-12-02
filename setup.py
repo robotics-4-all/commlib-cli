@@ -3,8 +3,6 @@ CLI for broker-based communication using commlib-py
 """
 from setuptools import find_packages, setup
 
-required = []
-
 setup(
     name='commlib-cli',
     version='0.2.0',
@@ -18,7 +16,6 @@ setup(
     include_package_data=True,
     zip_safe=False,
     platforms='any',
-    install_requires=required,
     entry_points={
         'console_scripts': [
             'commlib-cli = commlib_cli.cli:main',
